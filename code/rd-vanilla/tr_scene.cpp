@@ -293,6 +293,8 @@ void RE_RenderScene( const refdef_t *fd ) {
 	tr.refdef.y = fd->y;
 	tr.refdef.width = fd->width;
 	tr.refdef.height = fd->height;
+
+	GFX_DIAG( "[GFX-DIAG] tr.refdef: %d x %d\n", tr.refdef.width, tr.refdef.height );
 	tr.refdef.fov_x = fd->fov_x;
 	tr.refdef.fov_y = fd->fov_y;
 
@@ -389,6 +391,12 @@ void RE_RenderScene( const refdef_t *fd ) {
 	parms.viewportY = glConfig.vidHeight - ( tr.refdef.y + tr.refdef.height );
 	parms.viewportWidth = tr.refdef.width;
 	parms.viewportHeight = tr.refdef.height;
+
+	{
+		static qboolean once = qtrue;
+		if ( once ) { once = qfalse; GFX_DIAG( "[GFX-DIAG] viewParms: x=%d y=%d w=%d h=%d (glConfig.vidHeight=%d)\n",
+			parms.viewportX, parms.viewportY, parms.viewportWidth, parms.viewportHeight, glConfig.vidHeight ); }
+	}
 	parms.isPortal = qfalse;
 
 	parms.fovX = tr.refdef.fov_x;

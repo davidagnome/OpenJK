@@ -381,34 +381,32 @@ if(BuildMPEngine)
 		endif(UseInternalOpenAL)
 	endif()
 
-	if(UseInternalSDL2)
+	if(UseInternalSDL3)
 		if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 			set(MPEngineLibraries
 				${MPEngineLibraries}
-				${OpenJKLibDir}/SDL2/lib/x86/SDL2main.lib
-				${OpenJKLibDir}/SDL2/lib/x86/SDL2.lib
+				${OpenJKLibDir}/SDL3/lib/x86/SDL3.lib
 				)
 		else()
 			set(MPEngineLibraries
 				${MPEngineLibraries}
-				${OpenJKLibDir}/SDL2/lib/x64/SDL2main.lib
-				${OpenJKLibDir}/SDL2/lib/x64/SDL2.lib
+				${OpenJKLibDir}/SDL3/lib/x64/SDL3.lib
 				)
 		endif()
 
 		set(MPEngineIncludeDirectories
 			${MPEngineIncludeDirectories}
-			${OpenJKLibDir}/SDL2/include
+			${OpenJKLibDir}/SDL3/include
 			)
 	else()
-		find_package(SDL2 REQUIRED CONFIG)
-		if (TARGET SDL2::SDL2)
-			set(SDL2_INCLUDE_DIRS "")
-			set(SDL2_LIBRARIES SDL2::SDL2)
+		find_package(SDL3 REQUIRED CONFIG)
+		if (TARGET SDL3::SDL3)
+			set(SDL3_INCLUDE_DIRS "")
+			set(SDL3_LIBRARIES SDL3::SDL3)
 		endif()
-		string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
-		set(MPEngineIncludeDirectories ${MPEngineIncludeDirectories} ${SDL2_INCLUDE_DIRS})
-		set(MPEngineLibraries ${MPEngineLibraries} ${SDL2_LIBRARIES})
+		string(STRIP ${SDL3_LIBRARIES} SDL3_LIBRARIES)
+		set(MPEngineIncludeDirectories ${MPEngineIncludeDirectories} ${SDL3_INCLUDE_DIRS})
+		set(MPEngineLibraries ${MPEngineLibraries} ${SDL3_LIBRARIES})
 	endif()
 
 	# EAX is Windows-Only (right?)
@@ -567,14 +565,14 @@ if(BuildMPEngine)
 
 	if(WIN32)
 		add_executable(${MPEngine} WIN32 ${MPEngineFiles})
-		if(UseInternalSDL2)
+		if(UseInternalSDL3)
 			if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 				set(MPEngineExtraInstallFiles
-					${OpenJKLibDir}/SDL2/bin/x86/SDL2.dll
+					${OpenJKLibDir}/SDL3/bin/x86/SDL3.dll
 					)
 			else()
 				set(MPEngineExtraInstallFiles
-					${OpenJKLibDir}/SDL2/bin/x64/SDL2.dll
+					${OpenJKLibDir}/SDL3/bin/x64/SDL3.dll
 					)
 			endif()
 		endif()

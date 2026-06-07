@@ -931,7 +931,9 @@ CL_InitRenderer
 */
 void CL_InitRenderer( void ) {
 	// this sets up the renderer and calls R_Init
+	GFX_DIAG( "[GFX-DIAG] cls.glconfig before BeginReg: %d x %d\n", cls.glconfig.vidWidth, cls.glconfig.vidHeight );
 	re.BeginRegistration( &cls.glconfig );
+	GFX_DIAG( "[GFX-DIAG] cls.glconfig after BeginReg: %d x %d\n", cls.glconfig.vidWidth, cls.glconfig.vidHeight );
 
 	// load character sets
 	cls.charSetShader = re.RegisterShaderNoMip("gfx/2d/charsgrid_med");
@@ -1160,6 +1162,7 @@ void CL_InitRef( void ) {
 	RIT(Hunk_ClearToMark);
 
     rit.WIN_Init = WIN_Init;
+    rit.WIN_UpdatePixelDimensions = WIN_UpdatePixelDimensions;
 	rit.WIN_SetGamma = WIN_SetGamma;
     rit.WIN_Shutdown = WIN_Shutdown;
     rit.WIN_Present = WIN_Present;

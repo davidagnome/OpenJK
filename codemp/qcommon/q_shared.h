@@ -47,6 +47,13 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "qcommon/q_math.h"
 #include "qcommon/q_color.h"
 #include "qcommon/q_string.h"
+
+#if !defined(NDEBUG)
+#define GFX_DIAG(...) Com_Printf(__VA_ARGS__)
+#else
+#define GFX_DIAG(...) ((void)0)
+#endif
+
 #include "qcommon/disablewarnings.h"
 
 #include "game/teams.h" //npc team stuff

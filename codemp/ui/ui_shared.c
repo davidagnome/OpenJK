@@ -8534,6 +8534,34 @@ static void Item_ApplyHacks( itemDef_t *item ) {
 			Com_Printf( "Extended sound quality field to contain very high setting.\n");
 		}
 	}
+
+	if ( item->type == ITEM_TYPE_MULTI && item->cvar && !Q_stricmp( item->cvar, "ui_r_mode" ) ) {
+		multiDef_t *multiPtr = item->typeData.multi;
+		static const struct { const char *label; float value; } newModes[] = {
+			{ "1280x720 (720p)",    13 },
+			{ "1366x768",           14 },
+			{ "1600x900",           15 },
+			{ "1920x1080 (1080p)",  16 },
+			{ "2560x1440 (1440p)",  17 },
+			{ "3840x2160 (4K UHD)", 18 },
+		};
+		int numNew = ARRAY_LEN( newModes );
+		qboolean alreadyPresent = qfalse;
+		int i, m;
+		for ( i = 0; i < multiPtr->count && !alreadyPresent; i++ )
+			if ( multiPtr->cvarValue[i] == newModes[0].value )
+				alreadyPresent = qtrue;
+		if ( !alreadyPresent && multiPtr->count + numNew <= MAX_MULTI_CVARS )
+		{
+			for ( m = 0; m < numNew; m++ )
+			{
+				multiPtr->cvarList[multiPtr->count] = String_Alloc( newModes[m].label );
+				multiPtr->cvarValue[multiPtr->count] = newModes[m].value;
+				multiPtr->count++;
+			}
+			Com_Printf( "Extended video mode list with 16:9 resolutions (720p .. 4K).\n" );
+		}
+	}
 }
 
 /*

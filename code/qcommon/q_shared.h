@@ -60,6 +60,12 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
+#if !defined(NDEBUG)
+#define GFX_DIAG(...) Com_Printf(__VA_ARGS__)
+#else
+#define GFX_DIAG(...) ((void)0)
+#endif
+
 //rww - conveniently toggle "gore" code, for model decals and stuff.
 #ifndef JK2_MODE
 #define _G2_GORE

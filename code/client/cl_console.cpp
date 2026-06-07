@@ -262,11 +262,24 @@ static void Con_Resize(int rowwidth)
 	int		oldrowwidth;
 	int		oldtotallines;
 
+	if ( rowwidth < 1 || rowwidth > CON_TEXTSIZE / 2 )
+	{
+		Com_Printf( S_COLOR_YELLOW "WARNING: Con_Resize: bad rowwidth %d, aborting\n", rowwidth );
+		return;
+	}
+
 	oldrowwidth = con.rowwidth;
 	oldtotallines = con.totallines;
 
 	con.rowwidth = rowwidth;
 	con.totallines = CON_TEXTSIZE / rowwidth;
+
+	if ( oldtotallines < 1 )
+		oldtotallines = con.totallines;
+	if ( oldrowwidth < 1 )
+		oldrowwidth = rowwidth;
+	if ( con.current < 0 || con.current >= CON_TEXTSIZE )
+		con.current = 0;
 
 	memcpy (tbuf, con.text, sizeof(tbuf));
 	for(i=0; i<CON_TEXTSIZE; i++)
@@ -357,6 +370,14 @@ void Con_CheckResize (void)
 	float	scale;
 
 	assert(SMALLCHAR_HEIGHT >= SMALLCHAR_WIDTH);
+
+	if ( cls.glconfig.vidWidth < 100 || cls.glconfig.vidWidth > 10000
+		|| cls.glconfig.vidHeight < 100 || cls.glconfig.vidHeight > 10000 )
+	{
+		Com_Printf( S_COLOR_YELLOW "WARNING: Con_CheckResize: bad vid dimensions %d x %d, skipping\n",
+			cls.glconfig.vidWidth, cls.glconfig.vidHeight );
+		return;
+	}
 
 	scale = ((con_scale->value > 0.0f) ? con_scale->value : 1.0f);
 	charWidth = scale * SMALLCHAR_WIDTH;

@@ -827,7 +827,7 @@ static void InitOpenGL( void )
 	}
 	else
 	{
-		// set default state
+		ri.WIN_UpdatePixelDimensions( &glConfig );
 		GL_SetDefaultState();
 	}
 }

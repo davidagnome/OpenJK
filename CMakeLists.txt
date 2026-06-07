@@ -68,14 +68,14 @@ set(UseInternalOpenALDefault OFF)
 set(UseInternalZlibDefault   OFF)
 set(UseInternalPNGDefault    OFF)
 set(UseInternalJPEGDefault   OFF)
-set(UseInternalSDL2Default   OFF)
+set(UseInternalSDL3Default   OFF)
 
 if(UseInternalLibs OR WIN32)
   set(UseInternalOpenALDefault ON)
   set(UseInternalZlibDefault   ON)
   set(UseInternalPNGDefault    ON)
   set(UseInternalJPEGDefault   ON)
-  set(UseInternalSDL2Default   ON)
+  set(UseInternalSDL3Default   ON)
 endif()
 
 if(APPLE)
@@ -87,7 +87,7 @@ option(UseInternalOpenAL "If set, use bundled OpenAL."  ${UseInternalOpenALDefau
 option(UseInternalZlib   "If set, use bundled zlib."    ${UseInternalZlibDefault})
 option(UseInternalPNG    "If set, use bundled libpng."  ${UseInternalPNGDefault})
 option(UseInternalJPEG   "If set, use bundled libjpeg." ${UseInternalJPEGDefault})
-option(UseInternalSDL2   "If set, use bundled SDL2."    ${UseInternalSDL2Default})
+option(UseInternalSDL3   "If set, use bundled SDL3."    ${UseInternalSDL3Default})
 
 # This option won't appear on non-Apple platforms.
 if(APPLE)

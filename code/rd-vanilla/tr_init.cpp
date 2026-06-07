@@ -711,6 +711,7 @@ static void InitOpenGL( void )
 		memset(&glConfig, 0, sizeof(glConfig));
 
 		window = ri.WIN_Init(&windowDesc, &glConfig);
+		GFX_DIAG( "[GFX-DIAG] InitOpenGL first init: vidWidth=%d vidHeight=%d\n", glConfig.vidWidth, glConfig.vidHeight );
 
 		// get our config strings
 		glConfig.vendor_string = (const char *)qglGetString (GL_VENDOR);
@@ -733,7 +734,7 @@ static void InitOpenGL( void )
 	}
 	else
 	{
-		// set default state
+		ri.WIN_UpdatePixelDimensions( &glConfig );
 		GL_SetDefaultState();
 	}
 }

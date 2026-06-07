@@ -425,6 +425,13 @@ void SetViewportAndScissor( void ) {
 	qglLoadMatrixf( backEnd.viewParms.projectionMatrix );
 	qglMatrixMode(GL_MODELVIEW);
 
+	{
+		static qboolean once = qtrue;
+		if ( once ) { once = qfalse; GFX_DIAG( "[GFX-DIAG] SetViewportAndScissor 3D: x=%d y=%d w=%d h=%d\n",
+			backEnd.viewParms.viewportX, backEnd.viewParms.viewportY,
+			backEnd.viewParms.viewportWidth, backEnd.viewParms.viewportHeight ); }
+	}
+
 	// set the window clipping
 	qglViewport( backEnd.viewParms.viewportX, backEnd.viewParms.viewportY,
 		backEnd.viewParms.viewportWidth, backEnd.viewParms.viewportHeight );
@@ -974,6 +981,11 @@ RB_SetGL2D
 */
 void	RB_SetGL2D (void) {
 	backEnd.projection2D = qtrue;
+
+	{
+		static qboolean once = qtrue;
+		if ( once ) { once = qfalse; GFX_DIAG( "[GFX-DIAG] RB_SetGL2D viewport: %d x %d\n", glConfig.vidWidth, glConfig.vidHeight ); }
+	}
 
 	// set 2D virtual screen size
 	qglViewport( 0, 0, glConfig.vidWidth, glConfig.vidHeight );

@@ -199,6 +199,7 @@ typedef struct windowDesc_s
 
 typedef struct glconfig_s glconfig_t;
 window_t	WIN_Init( const windowDesc_t *desc, glconfig_t *glConfig );
+void		WIN_UpdatePixelDimensions( glconfig_t *glConfig );
 void		WIN_Present( window_t *window );
 void		WIN_SetGamma( glconfig_t *glConfig, byte red[256], byte green[256], byte blue[256] );
 void		WIN_Shutdown( void );
